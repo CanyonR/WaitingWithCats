@@ -114,14 +114,3 @@ inqueueShortMessage:
     actions:
       - endState:
           name: End State
-  states:
-    - state:
-        name: New State 1
-        refId: New State 1_17
-        actions:
-          - sendResponse:
-              name: Send Response
-              messageBody:
-                exp: "\"https://cdn2.thecatapi.com/images/cn5.jpg\""
-          - disconnect:
-              name: Disconnect
