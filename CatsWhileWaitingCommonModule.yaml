@@ -1,13 +1,127 @@
-commonModule:
+inqueueShortMessage:
   name: CatsWhileWaiting
   description: ""
   division: Home
   defaultLanguage: en-us
   supportedLanguages:
     en-us:
-      none: true
-    es-us:
-      none: true
-  settingsCommonModule:
-    compatibleFlowTypes:
-      - flowType: inqueuemessage
+      defaultLanguageSkill:
+        noValue: true
+  settingsErrorHandling:
+    errorHandling:
+      endInQueueState:
+        none: true
+  startUpState:
+    name: Initial State
+    refId: Initial State_10
+    variables:
+      - stringVariable:
+          name: State.catUrl
+          initialValue:
+            noValue: true
+          isInput: false
+          isOutput: false
+      - integerVariable:
+          name: State.loopCount
+          initialValue:
+            noValue: true
+          isInput: false
+          isOutput: false
+    actions:
+      - loop:
+          name: Loop
+          currentIndex:
+            var: State.loopCount
+          loopCount:
+            lit: 5
+          outputs:
+            loop:
+              actions:
+                - callData:
+                    name: Call Data Action
+                    timeout:
+                      lit:
+                        minutes: 1
+                    category:
+                      random.org:
+                        dataAction:
+                          GetCatPicUrlDataAction:
+                            successOutputs:
+                              url:
+                                var: State.catUrl
+                            failureOutputs:
+                              errorCode:
+                                noValue: true
+                              status:
+                                noValue: true
+                              correlationId:
+                                noValue: true
+                              entityId:
+                                noValue: true
+                              entityName:
+                                noValue: true
+                              userMessage:
+                                noValue: true
+                              userParamsMessage:
+                                noValue: true
+                              userParams.key:
+                                noValue: true
+                              userParams.value:
+                                noValue: true
+                              details.errorCode:
+                                noValue: true
+                              details.fieldName:
+                                noValue: true
+                              details.entityId:
+                                noValue: true
+                              details.entityName:
+                                noValue: true
+                    outputs:
+                      success:
+                        actions:
+                          - sendResponse:
+                              name: Send Response
+                              messageBody:
+                                lit: Please enjoy this cat picture while you wait!
+                          - sendResponse:
+                              name: Send Response
+                              messageBody:
+                                exp: State.catUrl
+                      failure:
+                        actions:
+                          - sendResponse:
+                              name: Send Response
+                              messageBody:
+                                lit: We're not looking at cat pictures (though we wish we were). Please continue to wait and an agent will be with you shortly.
+                      timeout:
+                        actions:
+                          - sendResponse:
+                              name: Send Response
+                              messageBody:
+                                lit: Please continue to wait. We really do appreciate your patience.
+                - wait:
+                    name: Wait
+                    trimDurationNearMaxRunningTime:
+                      lit: false
+                    duration:
+                      lit:
+                        seconds: 150
+      - endState:
+          name: End State
+  periodicState:
+    name: Recurring State
+    refId: Recurring State_12
+    actions:
+      - endState:
+          name: End State
+  states:
+    - state:
+        name: New State 1
+        refId: New State 1_17
+        actions:
+          - sendResponse:
+              name: Send Response
+              messageBody:
+                exp: "\"https://cdn2.thecatapi.com/images/cn5.jpg\""
+          - disconnect:
+              name: Disconnect
