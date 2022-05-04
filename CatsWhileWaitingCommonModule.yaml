@@ -1,0 +1,13 @@
+commonModule:
+  name: CatsWhileWaiting
+  description: ""
+  division: Home
+  defaultLanguage: en-us
+  supportedLanguages:
+    en-us:
+      none: true
+    es-us:
+      none: true
+  settingsCommonModule:
+    compatibleFlowTypes:
+      - flowType: inqueuemessage

@@ -1,0 +1,40 @@
+{
+    "name": "Get URL for Cat Picture",
+    "integrationType": "custom-rest-actions",
+    "actionType": "custom",
+    "config":{
+        "request":{
+            "requestUrlTemplate": "https://api.thecatapi.com/v1/images/search",
+            "requestType": "GET",
+            "headers": {
+            "x-api-key": "API_KEY"
+            },
+            "requestTemplate": ""
+        },
+        "response":{
+        "translationMap": {},
+        "translationMapDefaults": {},
+        "successTemplate": "${rawResult}"
+        }
+    },
+    "contract": {
+        "input": {},
+        "output": {
+            "successSchema": {
+                "title": "Link",
+                "type": "array",
+                "properties": {},
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "type": "string"
+                        }  
+                },
+                "additionalProperties": true
+            }
+        }
+    },
+    "secure": false
+    }
+}
